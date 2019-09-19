@@ -30,11 +30,13 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FurnitureServiceContractTest {
 
+    private static final int WIREMOCK_PORT = 8082;
+
     private WireMockServer wireMockServer;
 
     @BeforeEach
     public void setup() {
-        wireMockServer = new WireMockServer(8082);
+        wireMockServer = new WireMockServer(WIREMOCK_PORT);
         wireMockServer.stubFor(get(
                 urlEqualTo("/furniture-types"))
                 .willReturn(aResponse()
@@ -47,7 +49,7 @@ public class FurnitureServiceContractTest {
 
     @BeforeEach
     void setTarget(PactVerificationContext context) {
-        HttpTestTarget target = new HttpTestTarget("localhost", 8082);
+        HttpTestTarget target = new HttpTestTarget("localhost", WIREMOCK_PORT);
         context.setTarget(target);
     }
 
