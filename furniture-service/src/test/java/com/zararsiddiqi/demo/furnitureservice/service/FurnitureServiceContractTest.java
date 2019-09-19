@@ -26,7 +26,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 @Provider("furniture-service-producer")
-@PactFolder("/Users/a332135532/dev/pact-junit5-wiremock-spring-example/furniture-ui/target/pacts")
+@PactFolder("../furniture-ui/target/pacts")
 public class FurnitureServiceContractTest {
 
     private static final int WIREMOCK_PORT = 8082;
