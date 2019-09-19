@@ -136,7 +136,7 @@ void setTarget(PactVerificationContext context) {
 }
 ```
 Then it's a matter of reading the contract and executing the tests:
-```
+```java
 @TestTemplate  
 @ExtendWith(PactVerificationInvocationContextProvider.class)  
 void testTemplate(Pact pact, Interaction interaction, HttpRequest request, PactVerificationContext context) {  
