@@ -1,6 +1,6 @@
 package com.zararsiddiqi.demo.furnitureui.controller;
 
-import com.zararsiddiqi.demo.furnitureui.service.FurnitureService;
+import com.zararsiddiqi.demo.furnitureui.service.UiFurnitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class FurnitureUiController {
 
     @Autowired
-    private FurnitureService furnitureService;
+    private UiFurnitureService furnitureService;
 
     @GetMapping("/display-furniture-types")
     public String displayFurnitureTypes(Model model) {

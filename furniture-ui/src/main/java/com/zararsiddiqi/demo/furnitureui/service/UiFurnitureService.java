@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class FurnitureService {
+public class UiFurnitureService {
 
     @Value("${furnitureService.base}")
     private String furnitureServiceBase;

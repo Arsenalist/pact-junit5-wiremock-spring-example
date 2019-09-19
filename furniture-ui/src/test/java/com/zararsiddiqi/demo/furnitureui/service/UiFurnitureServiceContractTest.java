@@ -20,12 +20,12 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 @SpringBootTest
 @TestPropertySource(
         locations = "classpath:test-application.properties")
-public class FurnitureServiceContractTest {
+public class UiFurnitureServiceContractTest {
 
     private WireMockServer wireMockServer;
 
     @Autowired
-    private FurnitureService furnitureService;
+    private UiFurnitureService furnitureService;
 
     @BeforeEach
     public void setup() {
