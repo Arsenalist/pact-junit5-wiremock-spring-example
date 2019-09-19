@@ -18,16 +18,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
-
-@ExtendWith(SpringExtension.class)
-@Provider("furniture-service-producer")
-@PactFolder("/Users/a332135532/dev/pact-junit5-wiremock-spring-example/furniture-ui/target/pacts")
 /**
  * This spring environment is not needed as we're using WireMock to mock the service. However,
  * if we were using a live Spring app to run our contract tests again, then we'd use it (and presumably
  * not use WireMock) - it's really upto you.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(SpringExtension.class)
+@Provider("furniture-service-producer")
+@PactFolder("/Users/a332135532/dev/pact-junit5-wiremock-spring-example/furniture-ui/target/pacts")
 public class FurnitureServiceContractTest {
 
     private static final int WIREMOCK_PORT = 8082;
