@@ -55,14 +55,12 @@ public class FurnitureServiceContractTest {
 
     @AfterEach
     public void tearDown() {
-
         wireMockServer.stop();
     }
 
     @TestTemplate
     @ExtendWith(PactVerificationInvocationContextProvider.class)
     void testTemplate(Pact pact, Interaction interaction, HttpRequest request, PactVerificationContext context) {
-        System.out.println("testTemplate called: " + pact.getProvider().getName() + ", " + interaction.getDescription());
         context.verifyInteraction();
     }
 
