@@ -31,7 +31,6 @@ public class UiFurnitureServiceContractTest {
     public void setup() {
         wireMockServer = new WireMockServer(8082);
 
-        // Generate
         wireMockServer.addMockServiceRequestListener(
                 WireMockPactGenerator
                         .builder("furniture-ui-consumer", "furniture-service-producer")
