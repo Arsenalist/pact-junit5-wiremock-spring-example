@@ -1,3 +1,5 @@
+Contact-based testing allows service consumers and service providers to stay in continuous sync so that any breaking changes are immediately visible.  In general, there are two types of contract-based testing. The first is where the consumer specifies what the producer service should do, and the other is where the producer defines how the consumer should expect to create it. This example is about consumer-based contract testing which is more relevant in organizations where delivery teams are dependent on internal (and often legacy) systems to consumer system-of-record services. An excellent intro to the concept can be found [here](https://docs.pact.io/).
+
 We'll implement a CDC using an example of a Furniture UI application which depends on a Furniture Service application. Basically, the Furniture UI just displays the data returned by the Furniture Service.
 
 The tools we're using are:
@@ -12,7 +14,7 @@ The tools we're using are:
 We define the contract using WireMock in our `UiFurnitureServiceContractTest` class:
 
 First, we tell WireMock to generate Pact contracts based on any stubbing that we'll do. 
-```
+```java
 @BeforeEach  
 public void setup() {  
     wireMockServer = new WireMockServer(8082);  
@@ -24,7 +26,7 @@ public void setup() {
 }
 ```
 Second, we'll define a WireMock stub and then execute some expectations against it.
-```
+```java
 @Test  
 public void furnitureTypes() {  
     // given  
@@ -45,7 +47,7 @@ public void furnitureTypes() {
 }
 ```
 This will generate a Pact file which looks like the following. You'll notice that this looks very similar to WireMock JSON stubs. The reason we're using WireMock to generate these instead of Pact's own DSL is the possible duplication in creating these contracts. If you're already invested in WireMock there may be little reason to expand the toolset to do something which we can already do with ease.  This is made possible by the `wiremock-pact-generator` library.
-```
+```json
 {  
   "consumer": {  
     "name": "furniture-ui-consumer"  
@@ -96,7 +98,7 @@ In the example below, we are using a WireMocked back-end in the provider service
 ## Satisfying the Contract
 
 The key annotations on the contract class are as follows. Let's examine both of them:
-```
+```java
 @Provider("furniture-service-producer")  
 @PactFolder("../furniture-ui/target/pacts")  
 public class FurnitureServiceContractTest
@@ -108,7 +110,7 @@ There are other ways to define where the contracts are stored but that is beyond
 
 We next setup a WireMock server to validate the contract. Remember, we could use the real application as well but we just chose the WireMock instead.
 
-```
+```java
 private static final int WIREMOCK_PORT = 8082;  
 private WireMockServer wireMockServer;
 
@@ -126,7 +128,7 @@ public void setup() {
 }
 ```
 We must now make sure that when the contract is executed it goes against the WireMocked backend (by default it'll hit localhost:8080) but as WireMock starts on a different port, we need the following:
-```
+```java
 @BeforeEach  
 void setTarget(PactVerificationContext context) {  
     HttpTestTarget target = new HttpTestTarget("localhost", WIREMOCK_PORT);  
@@ -145,6 +147,9 @@ void testTemplate(Pact pact, Interaction interaction, HttpRequest request, PactV
 That's it, if you run the tests on the provider, you'll notice the following in the logs:
 
 ```
+  GET /furniture-types -> 200
+testTemplate called: furniture-service-producer, GET /furniture-types -> 200
+2019-09-19 12:10:41.850  INFO 82307 --- [tp1947681232-38] o.e.j.s.handler.ContextHandler.ROOT      : RequestHandlerClass from context returned com.github.tomakehurst.wiremock.http.StubRequestHandler. Normalized mapped under returned 'null'
     returns a response which
       has status code 200 (OK)
       has a matching body (OK)
