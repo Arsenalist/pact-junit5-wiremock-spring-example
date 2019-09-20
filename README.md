@@ -144,7 +144,7 @@ void testTemplate(Pact pact, Interaction interaction, HttpRequest request, PactV
 }
 ```
 
-That's it, if you run the tests on the provider, you'll notice the following in the logs:
+That's it. If you run the tests on the provider you'll notice the following in the logs:
 
 ```
   GET /furniture-types -> 200
